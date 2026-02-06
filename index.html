@@ -166,7 +166,9 @@
     e.preventDefault();
     const name=document.getElementById("name").value;
     const notes=document.getElementById("notes").value;
-    const body=`Confermo la presenza a Larry's wedding\\n\\nNome: ${name}\\nNote: ${notes}`;
+    const body=`Confermo la mia partecipazione al matrimonio dei Larry's !!!!!
+    Nome del partecipante: ${name} 
+    Di seguito specifico le mie intolleranze alimentari: ${notes}`;
     window.location.href=
       "mailto:francesco.lazzati@outlook.it,cecy_te@gmail.com"+
       "?subject=RSVP%20-%20Larry's%20wedding&body="+encodeURIComponent(body);

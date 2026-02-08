@@ -12,10 +12,23 @@
 
   <style>
     :root{
-      --ivory:#f6f0de; --rose:#d5727d; --olive:#69703a;
-      --ink:#2a2a2a; --muted:rgba(42,42,42,.68);
+      --ivory:#f6f0de;
+      --rose:#d5727d;
+      --olive:#69703a;
+
+      /* Hero title (dark green) */
+      --title-green:#2f3a1f;
+
+      --ink:#2a2a2a;
+      --muted:rgba(42,42,42,.68);
       --line:rgba(42,42,42,.12);
-      --radius:18px; --shadow:0 18px 45px rgba(0,0,0,.08);
+      --radius:18px;
+      --shadow:0 18px 45px rgba(0,0,0,.08);
+
+      /* Background images (MATCH your uploaded filenames) */
+      --img-details: url("images/durini-details.jpg");
+      --img-location: url("images/durini-location.jpg");
+      --img-rsvp:    url("images/moodboard-floral.jpg"); /* <-- matches your file */
     }
 
     *{box-sizing:border-box;}
@@ -39,32 +52,53 @@
       text-align:center;
     }
 
-    .monogram{
-      width:40px;height:40px;margin:auto;
-      border-radius:50%;
-      background:linear-gradient(135deg,var(--rose),var(--olive));
-      display:grid;place-items:center;
-      font-family:"Inter";font-weight:500;color:#fff;
+    /* Hero title in dark green */
+    h1{
+      font-family:"Great Vibes";
+      font-size:68px;
+      margin:12px 0;
+      color: var(--title-green);
     }
 
-    h1{font-family:"Great Vibes";font-size:68px;margin:12px 0;}
     .subtitle{font-size:18px;color:var(--muted);}
 
+    /* Sections with translucent background images */
     section{
       margin-top:26px;
       padding:26px;
-      background:rgba(255,255,255,.7);
       border-radius:var(--radius);
       border:1px solid var(--line);
+      box-shadow: 0 10px 28px rgba(0,0,0,.04);
+      position:relative;
+      overflow:hidden;
+      background:rgba(255,255,255,.70);
     }
+
+    section::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.80), rgba(255,255,255,.72)),
+        var(--section-bg, none);
+      background-size:cover;
+      background-position:center;
+      opacity:.55; /* increase to see more image, decrease for more readability */
+      filter:saturate(.95) contrast(.95);
+      pointer-events:none;
+      z-index:0;
+    }
+
+    section > *{ position:relative; z-index:1; }
 
     h2{font-weight:500;font-size:22px;margin:0 0 14px;}
 
     .card{
-      background:rgba(255,255,255,.8);
+      background:rgba(255,255,255,.84);
       border-radius:14px;
       border:1px solid var(--line);
       padding:18px;
+      backdrop-filter: blur(2px);
     }
 
     .label{
@@ -83,12 +117,13 @@
       margin-top:14px;
       padding:12px 18px;
       border-radius:14px;
-      background:linear-gradient(180deg, rgba(213,114,125,.25), rgba(255,255,255,.8));
+      background:linear-gradient(180deg, rgba(213,114,125,.25), rgba(255,255,255,.85));
       border:1px solid var(--line);
       font-family:"Inter";
       font-size:14px;
       text-decoration:none;
       color:var(--ink);
+      cursor:pointer;
     }
 
     form{margin-top:14px;display:grid;gap:12px;}
@@ -99,6 +134,7 @@
       border:1px solid var(--line);
       font-family:"Inter";
       font-size:14px;
+      background: rgba(255,255,255,.92);
     }
     textarea{min-height:110px;resize:vertical;}
 
@@ -109,6 +145,11 @@
       font-size:12px;
       color:var(--muted);
     }
+
+    /* Assign images per section */
+    .sec-details{ --section-bg: var(--img-details); }
+    .sec-location{ --section-bg: var(--img-location); }
+    .sec-rsvp{ --section-bg: var(--img-rsvp); }
   </style>
 </head>
 
@@ -120,26 +161,27 @@
     <p class="subtitle">20 Giugno 2025 • ore 17:00<br>Castello Durini, Alzate Brianza (Como)</p>
   </div>
 
-  <section>
+  <section class="sec-details">
     <h2>Dettagli</h2>
     <div class="card">
       <p class="label">Quando</p>
       <p class="value">Venerdì 20 Giugno 2025 — ore 17:00</p>
+
       <p class="label" style="margin-top:12px;">Dove</p>
       <p class="value">Castello Durini<br><span style="color:var(--muted)">Alzate Brianza (Como)</span></p>
     </div>
   </section>
 
-  <section>
+  <section class="sec-location">
     <h2>Location</h2>
     <div class="card">
       <p class="label">Castello Durini</p>
-      <p class="value"> Via castello, 4, 22040 Alzate Brianza CO </p>
-      <a class="btn" href="https://share.google/2f3C9FFLTEhddJc6H" target="_blank">Apri mappa</a>
+      <p class="value">Via Castello, 4, 22040 Alzate Brianza (CO)</p>
+      <a class="btn" href="https://share.google/2f3C9FFLTEhddJc6H" target="_blank" rel="noopener">Apri mappa</a>
     </div>
   </section>
 
-  <section>
+  <section class="sec-rsvp">
     <h2>RSVP</h2>
     <div class="card">
       <p class="value">
@@ -147,7 +189,7 @@
       </p>
 
       <form id="rsvpForm">
-        <input id="name" placeholder="Nome e cognome" required>
+        <input id="name" type="text" placeholder="Nome e cognome" required>
         <textarea id="notes" placeholder="Note (facci sapere se hai intolleranze, esigenze, ecc.)"></textarea>
         <button class="btn" type="submit">Invia RSVP via email</button>
       </form>
@@ -161,18 +203,23 @@
 
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  document.getElementById("rsvpForm").addEventListener("submit",function(e){
+
+  document.getElementById("rsvpForm").addEventListener("submit", function(e){
     e.preventDefault();
-    const name=document.getElementById("name").value;
-    const notes=document.getElementById("notes").value;
-    const body=`Confermo la mia partecipazione al matrimonio dei Larry's !!!!!
-    Nome del partecipante: ${name} 
-    Di seguito specifico le mie intolleranze alimentari: ${notes}`;
-    window.location.href=
-      "mailto:francesco.lazzati@outlook.it,cecy_te@gmail.com"+
-      "?subject=RSVP%20-%20Larry's%20wedding&body="+encodeURIComponent(body);
+
+    const name = document.getElementById("name").value;
+    const notes = document.getElementById("notes").value;
+
+    const body =
+      "Confermo la mia partecipazione a Larry's wedding.\n\n" +
+      "Nome del partecipante:\n" + name + "\n\n" +
+      "Note / intolleranze alimentari:\n" + (notes ? notes : "Nessuna");
+
+    window.location.href =
+      "mailto:francesco.lazzati@outlook.it,cecy_te@gmail.com" +
+      "?subject=RSVP%20-%20Larry's%20wedding" +
+      "&body=" + encodeURIComponent(body);
   });
 </script>
 </body>
 </html>
-

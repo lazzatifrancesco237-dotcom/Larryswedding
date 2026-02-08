@@ -14,7 +14,7 @@
     :root{
       --ivory:#f6f0de;
       --rose:#d5727d;
-      --olive:#4d5e33; /* NEW dark green */
+      --olive:#4d5e33; /* verde scuro richiesto */
 
       --ink:#2a2a2a;
       --muted:rgba(42,42,42,.70);
@@ -22,13 +22,14 @@
       --radius:18px;
       --shadow:0 18px 45px rgba(0,0,0,.08);
 
-      /* background images (match uploaded files) */
+      /* immagini caricate */
       --img-details: url("images/durini-details.jpg");
       --img-location: url("images/durini-location.jpg");
       --img-rsvp:    url("images/moodboard-floral.jpg");
     }
 
     *{box-sizing:border-box;}
+
     body{
       margin:0;
       background:
@@ -38,8 +39,13 @@
       color:var(--ink);
     }
 
-    .container{width:min(960px,92vw);margin:auto;padding:30px 0 60px;}
+    .container{
+      width:min(960px,92vw);
+      margin:auto;
+      padding:30px 0 60px;
+    }
 
+    /* HERO */
     .hero{
       background:rgba(255,255,255,.65);
       border:1px solid var(--line);
@@ -53,12 +59,15 @@
       font-family:"Great Vibes";
       font-size:68px;
       margin:12px 0;
-      color: var(--olive); /* hero title green */
+      color:var(--olive);
     }
 
-    .subtitle{font-size:18px;color:var(--muted);}
+    .subtitle{
+      font-size:18px;
+      color:var(--muted);
+    }
 
-    /* SECTIONS */
+    /* SEZIONI */
     section{
       margin-top:26px;
       padding:26px;
@@ -69,7 +78,6 @@
       background:rgba(255,255,255,.60);
     }
 
-    /* BACKGROUND IMAGE LAYER */
     section::before{
       content:"";
       position:absolute;
@@ -83,23 +91,29 @@
         var(--section-bg);
       background-size:cover;
       background-position:center;
-      opacity:.78; /* MORE IMAGE VISIBILITY */
+      opacity:.78; /* maggiore risalto immagini */
       filter:saturate(1.05) contrast(1.05);
       pointer-events:none;
       z-index:0;
     }
 
-    section > *{position:relative;z-index:1;}
+    section > *{
+      position:relative;
+      z-index:1;
+    }
 
-    h2{font-weight:500;font-size:22px;margin:0 0 14px;}
+    h2{
+      font-weight:500;
+      font-size:22px;
+      margin:0 0 14px;
+    }
 
-    /* CONTENT BOX */
     .card{
-      background:rgba(255,255,255,.72); /* MORE TRANSPARENT */
+      background:rgba(255,255,255,.72);
       border-radius:14px;
       border:1px solid rgba(42,42,42,.10);
       padding:18px;
-      backdrop-filter: blur(5px); /* keeps text readable */
+      backdrop-filter: blur(5px);
     }
 
     .label{
@@ -111,7 +125,9 @@
       margin-bottom:6px;
     }
 
-    .value{font-size:17px;}
+    .value{
+      font-size:17px;
+    }
 
     .btn{
       display:inline-block;
@@ -131,7 +147,12 @@
       cursor:pointer;
     }
 
-    form{margin-top:14px;display:grid;gap:12px;}
+    form{
+      margin-top:14px;
+      display:grid;
+      gap:12px;
+    }
+
     input,textarea{
       width:100%;
       padding:12px;
@@ -141,7 +162,39 @@
       font-size:14px;
       background:rgba(255,255,255,.90);
     }
-    textarea{min-height:110px;resize:vertical;}
+
+    textarea{
+      min-height:110px;
+      resize:vertical;
+    }
+
+    /* SEZIONE REGALO / VIAGGIO DI NOZZE */
+    .gift{
+      margin-top:30px;
+      padding:40px 26px;
+      text-align:center;
+      background:rgba(255,255,255,.65);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+
+    .gift p{
+      max-width:720px;
+      margin:0 auto;
+      font-size:20px;
+      line-height:1.6;
+      color:var(--ink);
+    }
+
+    .gift .iban{
+      display:block;
+      margin-top:14px;
+      font-family:"Inter";
+      font-size:15px;
+      letter-spacing:.05em;
+      color:var(--olive);
+    }
 
     footer{
       margin-top:30px;
@@ -151,7 +204,7 @@
       color:var(--muted);
     }
 
-    /* section background bindings */
+    /* associa immagini alle sezioni */
     .sec-details{ --section-bg: var(--img-details); }
     .sec-location{ --section-bg: var(--img-location); }
     .sec-rsvp{ --section-bg: var(--img-rsvp); }
@@ -161,6 +214,7 @@
 <body>
 <div class="container">
 
+  <!-- HERO -->
   <div class="hero">
     <h1>Larry's wedding</h1>
     <p class="subtitle">
@@ -169,6 +223,7 @@
     </p>
   </div>
 
+  <!-- DETTAGLI -->
   <section class="sec-details">
     <h2>Dettagli</h2>
     <div class="card">
@@ -183,15 +238,19 @@
     </div>
   </section>
 
+  <!-- LOCATION -->
   <section class="sec-location">
     <h2>Location</h2>
     <div class="card">
       <p class="label">Castello Durini</p>
       <p class="value">Via Castello, 4, 22040 Alzate Brianza (CO)</p>
-      <a class="btn" href="https://share.google/2f3C9FFLTEhddJc6H" target="_blank">Apri mappa</a>
+      <a class="btn" href="https://share.google/2f3C9FFLTEhddJc6H" target="_blank" rel="noopener">
+        Apri mappa
+      </a>
     </div>
   </section>
 
+  <!-- RSVP -->
   <section class="sec-rsvp">
     <h2>RSVP</h2>
     <div class="card">
@@ -208,9 +267,22 @@
     </div>
   </section>
 
+  <!-- REGALO / VIAGGIO DI NOZZE -->
+  <div class="gift">
+    <p>
+      La vostra presenza è il regalo più bello, ma se lo desiderate
+      potete contribuire al nostro viaggio di nozze.
+      <span class="iban">
+        IBAN: IT66E0348822800000000036289
+      </span>
+      Grazie.
+    </p>
+  </div>
+
   <footer>
     © <span id="year"></span> Larry's wedding
   </footer>
+
 </div>
 
 <script>
@@ -218,8 +290,10 @@
 
   document.getElementById("rsvpForm").addEventListener("submit", function(e){
     e.preventDefault();
+
     const name = document.getElementById("name").value;
     const notes = document.getElementById("notes").value;
+
     const body =
       "Confermo la mia partecipazione a Larry's wedding.\n\n" +
       "Nome del partecipante:\n" + name + "\n\n" +
